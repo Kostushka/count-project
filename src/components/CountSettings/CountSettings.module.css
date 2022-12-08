@@ -1,0 +1,15 @@
+.settings {
+    display: flex;
+    flex-direction: column;
+}
+.field {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 18px;
+    margin: 10px;
+    color: lightblue;
+}
+.span {
+    margin-right: 10px;
+}

@@ -1,0 +1,13 @@
+.input {
+    max-width: 150px;
+    border: 2px solid lightblue;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 16px;
+    outline: none;
+}
+
+.error {
+    background-color: rgb(224, 116, 116);
+    border: 2px solid red;
+}

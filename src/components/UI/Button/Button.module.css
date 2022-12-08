@@ -1,0 +1,22 @@
+.button {
+    min-width: 50px;
+    min-height: 30px;
+    background-color: lightblue;
+    border: 3px solid transparent;
+    border-radius: 6px;
+    font-size: 20px;
+    font-weight: bold;
+    color: darkslategray;
+}
+.button:hover {
+    cursor: pointer;
+    background-color: rgb(147, 190, 204);
+}
+.button:active {
+    background-color: rgb(85, 129, 129);
+}
+.button:disabled {
+    cursor: auto;
+    background-color: lightslategrey;
+    color: rgb(92, 90, 90);
+}

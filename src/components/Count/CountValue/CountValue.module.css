@@ -1,0 +1,21 @@
+.count {
+    font-size: 50px;
+    font-weight: bold;
+    color: lightblue;
+}
+
+.red {
+    font-size: 70px;
+    font-weight: bold;
+    color: red;
+}
+
+.error {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(214, 29, 29);
+}
+.text {
+    font-size: 20px;
+    font-weight: bold;
+}
