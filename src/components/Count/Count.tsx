@@ -4,36 +4,35 @@ import Button from '../UI/Button';
 import styles from './Count.module.css';
 
 type EntryFieldButtonsType = {
-    id: number;
     name: Array<string>;
 };
 
 type CountType = {
     children: ReactNode;
     error?: boolean;
-    errorSetDisabled?: boolean;
-    countState?: boolean;
-    stateSetButton?: boolean;
+    errorValueForDisabledSetButton?: boolean;
+    isChangeCount?: boolean;
+    stateChangeCountForDisabledSetButton?: boolean;
     countValue: number;
     maxValue: number;
     minValue: number;
     entryFieldButtons: EntryFieldButtonsType;
     setCountValue: (countValue: number) => void;
-    setCountState?: (countState: boolean) => void;
+    setIsChangeCount?: (isChangeCount: boolean) => void;
 };
 
 function Count({
     error,
-    errorSetDisabled,
-    countState,
-    stateSetButton,
+    errorValueForDisabledSetButton,
+    isChangeCount,
+    stateChangeCountForDisabledSetButton,
     children,
     countValue,
     maxValue,
     minValue,
     setCountValue,
     entryFieldButtons,
-    setCountState,
+    setIsChangeCount,
 }: CountType) {
     const changeCountValue = (buttonName: string) => {
         switch (buttonName) {
@@ -49,8 +48,8 @@ function Count({
                 if (minValue) {
                     setCountValue(minValue);
                 }
-                if (setCountState) {
-                    setCountState(false);
+                if (setIsChangeCount) {
+                    setIsChangeCount(false);
                 }
                 break;
         }
@@ -59,21 +58,25 @@ function Count({
     const disabled = (buttonName: string) => {
         switch (buttonName) {
             case 'inc':
-                return countValue === maxValue || countState;
+                return countValue === maxValue || isChangeCount;
             case 'reset':
-                return countValue === minValue || countState;
+                return countValue === minValue || isChangeCount;
             case 'set':
-                return minValue < 0 || !stateSetButton || errorSetDisabled;
+                return (
+                    minValue < 0 ||
+                    !stateChangeCountForDisabledSetButton ||
+                    errorValueForDisabledSetButton
+                );
         }
     };
     return (
         <>
             <div className={styles.wrapper}>
                 <div className={styles.count__container}>
-                    {/* Поле */}
+                    {/* Поле со значением или с настройками счетчика */}
                     <CountValue
                         error={error}
-                        countState={countState}
+                        isChangeCount={isChangeCount}
                         countValue={countValue}
                         maxValue={maxValue}
                         children={children}

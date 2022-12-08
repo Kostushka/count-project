@@ -1,38 +1,45 @@
 import { useEffect, useState } from 'react';
 import CountSettings from './components/CountSettings';
-import Count from './components/Count/Count';
+import Count from './components/Count';
 
 import styles from './App.module.css';
 
 function App() {
+    // переменные для ключей
     const COUNT_1 = 'count1';
     const COUNT_2 = 'count2';
 
+    type EntryFieldButtonsType = {
+        [COUNT_1: string]: { name: Array<string> };
+    };
+
+    // массив имен кнопок для двух счетчиков
+    const entryFieldButtons: EntryFieldButtonsType = {
+        [COUNT_1]: { name: ['set'] },
+        [COUNT_2]: { name: ['inc', 'reset'] },
+    };
+
+    // стейт для значения счетчика
     const [countValue, setCountValue] = useState<number>(0);
 
+    // стейт для максимального и стартого значений
     const [inputMaxValue, setInputMaxValue] = useState<number>(5);
     const [inputStartValue, setInputStartValue] = useState<number>(0);
 
-    const [error, setError] = useState<boolean>(false);
+    // флаг для определения ошибочных максимального и стартого значений
+    const [errorValue, setErrorValue] = useState<boolean>(false);
 
-    const [countState, setCountState] = useState<boolean>(false);
+    // флаг для определения: изменяются ли поля максимального и стартого значений
+    const [isChangeCount, setIsChangeCount] = useState<boolean>(false);
 
+    // изменение флага с ошибкой при изменении стартого и максимального значений
     useEffect(() => {
         if (inputStartValue < 0 || inputStartValue >= inputMaxValue) {
-            setError(true);
+            setErrorValue(true);
         } else {
-            setError(false);
+            setErrorValue(false);
         }
-    }, [inputStartValue]);
-
-    type EntryFieldButtonsType = {
-        [COUNT_1: string]: { id: number; name: Array<string> };
-    };
-
-    const entryFieldButtons: EntryFieldButtonsType = {
-        [COUNT_1]: { id: 1, name: ['set'] },
-        [COUNT_2]: { id: 2, name: ['inc', 'reset'] },
-    };
+    }, [inputStartValue, inputMaxValue]);
 
     return (
         <div className={styles.container}>
@@ -44,9 +51,8 @@ function App() {
                         setInputMaxValue={setInputMaxValue}
                         inputStartValue={inputStartValue}
                         setInputStartValue={setInputStartValue}
-                        setCountState={setCountState}
-                        error={error}
-                        setError={setError}
+                        setIsChangeCount={setIsChangeCount}
+                        error={errorValue}
                     />
                 }
                 countValue={countValue}
@@ -54,9 +60,9 @@ function App() {
                 minValue={inputStartValue}
                 setCountValue={setCountValue}
                 entryFieldButtons={entryFieldButtons[COUNT_1]}
-                setCountState={setCountState}
-                stateSetButton={countState}
-                errorSetDisabled={error}
+                setIsChangeCount={setIsChangeCount}
+                stateChangeCountForDisabledSetButton={isChangeCount}
+                errorValueForDisabledSetButton={errorValue}
             />
             {/* Счетчик */}
             <Count
@@ -66,8 +72,8 @@ function App() {
                 minValue={inputStartValue}
                 setCountValue={setCountValue}
                 entryFieldButtons={entryFieldButtons[COUNT_2]}
-                error={error}
-                countState={countState}
+                error={errorValue}
+                isChangeCount={isChangeCount}
             />
         </div>
     );

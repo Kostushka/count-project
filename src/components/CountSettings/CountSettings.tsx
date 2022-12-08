@@ -2,33 +2,29 @@ import Input from '../UI/Input';
 import styles from './CountSettings.module.css';
 
 type CountSettingsType = {
-    setCountState: (state: boolean) => void;
     error: boolean;
-    setError: (error: boolean) => void;
     inputMaxValue: number;
-    setInputMaxValue: (inputMaxValue: number) => void;
     inputStartValue: number;
     setInputStartValue: (inputStartValue: number) => void;
+    setInputMaxValue: (inputMaxValue: number) => void;
+    setIsChangeCount: (isChangeCount: boolean) => void;
 };
 
 function CountSettings({
-    setCountState,
     error,
-    setError,
     inputMaxValue,
     inputStartValue,
     setInputMaxValue,
     setInputStartValue,
+    setIsChangeCount,
 }: CountSettingsType) {
     const changeInputMaxHandler = (number: number) => {
         setInputMaxValue(number);
-        setCountState(true);
-        setError(inputStartValue > inputMaxValue);
+        setIsChangeCount(true);
     };
     const changeInputStartHandler = (number: number) => {
         setInputStartValue(number);
-        setCountState(true);
-        setError(inputStartValue > inputMaxValue || inputStartValue < 0);
+        setIsChangeCount(true);
     };
     return (
         <div className={styles.settings}>
@@ -42,7 +38,7 @@ function CountSettings({
                     setInputValue={(number: number) =>
                         changeInputMaxHandler(number)
                     }
-                    error={error && inputStartValue > 0}
+                    error={(error && inputStartValue > 0) || inputMaxValue < 0}
                 />
             </div>
             {/* стартовое значение счетчика */}

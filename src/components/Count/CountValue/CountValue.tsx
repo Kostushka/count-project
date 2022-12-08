@@ -6,7 +6,7 @@ type CountValueType = {
     maxValue: number;
     children: ReactNode;
     error?: boolean;
-    countState?: boolean;
+    isChangeCount?: boolean;
 };
 
 function CountValue({
@@ -14,7 +14,7 @@ function CountValue({
     countValue,
     maxValue,
     error,
-    countState,
+    isChangeCount,
 }: CountValueType) {
     return (
         <div
@@ -25,7 +25,7 @@ function CountValue({
         >
             {error ? (
                 <div className={styles.error}>Incorrect value!</div>
-            ) : countState ? (
+            ) : isChangeCount ? (
                 <div className={styles.text}>Enter values and press 'set'</div>
             ) : (
                 <>{children}</>
