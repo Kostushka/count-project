@@ -3,6 +3,7 @@ import CountSettings from './components/CountSettings';
 import Count from './components/Count';
 
 import styles from './App.module.css';
+import CountWithSettings from './components/CountWithSettings';
 
 function App() {
     // переменные для ключей
@@ -43,38 +44,45 @@ function App() {
 
     return (
         <div className={styles.container}>
-            {/* Поле настроек счетчика */}
-            <Count
-                children={
-                    <CountSettings
-                        inputMaxValue={inputMaxValue}
-                        setInputMaxValue={setInputMaxValue}
-                        inputStartValue={inputStartValue}
-                        setInputStartValue={setInputStartValue}
-                        setIsChangeCount={setIsChangeCount}
-                        error={errorValue}
-                    />
-                }
-                countValue={countValue}
-                maxValue={inputMaxValue}
-                minValue={inputStartValue}
-                setCountValue={setCountValue}
-                entryFieldButtons={entryFieldButtons[COUNT_1]}
-                setIsChangeCount={setIsChangeCount}
-                stateChangeCountForDisabledSetButton={isChangeCount}
-                errorValueForDisabledSetButton={errorValue}
-            />
-            {/* Счетчик */}
-            <Count
-                children={countValue}
-                countValue={countValue}
-                maxValue={inputMaxValue}
-                minValue={inputStartValue}
-                setCountValue={setCountValue}
-                entryFieldButtons={entryFieldButtons[COUNT_2]}
-                error={errorValue}
-                isChangeCount={isChangeCount}
-            />
+            <div className={styles.count}>
+                {/* Поле настроек счетчика */}
+                <Count
+                    children={
+                        <CountSettings
+                            inputMaxValue={inputMaxValue}
+                            setInputMaxValue={setInputMaxValue}
+                            inputStartValue={inputStartValue}
+                            setInputStartValue={setInputStartValue}
+                            setIsChangeCount={setIsChangeCount}
+                            error={errorValue}
+                        />
+                    }
+                    countValue={countValue}
+                    maxValue={inputMaxValue}
+                    minValue={inputStartValue}
+                    setCountValue={setCountValue}
+                    entryFieldButtons={entryFieldButtons[COUNT_1]}
+                    setIsChangeCount={setIsChangeCount}
+                    stateChangeCountForDisabledSetButton={isChangeCount}
+                    errorValueForDisabledSetButton={errorValue}
+                />
+                {/* Счетчик */}
+                <Count
+                    children={countValue}
+                    countValue={countValue}
+                    maxValue={inputMaxValue}
+                    minValue={inputStartValue}
+                    setCountValue={setCountValue}
+                    entryFieldButtons={entryFieldButtons[COUNT_2]}
+                    error={errorValue}
+                    isChangeCount={isChangeCount}
+                />
+            </div>
+
+            <div className={styles.count__settings}>
+                {/* Счетчик с настройками */}
+                <CountWithSettings />
+            </div>
         </div>
     );
 }

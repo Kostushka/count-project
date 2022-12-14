@@ -3,7 +3,7 @@ import CountValue from './CountValue';
 import Button from '../UI/Button';
 import styles from './Count.module.css';
 
-type EntryFieldButtonsType = {
+type EntryFieldButtonsNameType = {
     name: Array<string>;
 };
 
@@ -16,7 +16,7 @@ type CountType = {
     countValue: number;
     maxValue: number;
     minValue: number;
-    entryFieldButtons: EntryFieldButtonsType;
+    entryFieldButtons: EntryFieldButtonsNameType;
     setCountValue: (countValue: number) => void;
     setIsChangeCount?: (isChangeCount: boolean) => void;
 };

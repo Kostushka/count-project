@@ -1,6 +1,14 @@
 .container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    margin: 300px;
+    align-items: stretch;
+    margin: 200px;
+}
+.count {
+    display: flex;
+    margin-bottom: 50px;
+}
+.count__settings {
+    display: flex;
 }
