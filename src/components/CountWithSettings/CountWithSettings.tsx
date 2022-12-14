@@ -5,41 +5,41 @@ import Input from '../UI/Input';
 import styles from './CountWithSettings.module.css';
 
 function CountWithSettings() {
-    const buttons = ['inc', 'reset', 'set'];
+    // const buttons = ['inc', 'reset', 'set'];
 
     // обработчик клика: принимает имя кнопки, выполняет соответсвующее изменение данных для перерисовки
-    const buttonsNameHandler = (buttonName: string) => {
-        switch (buttonName) {
-            case 'set':
-                setCountValue(minValue);
-                setIsChangeValue(false);
-                setIsVisibleSettings(!isVisibleSettings);
-                break;
-            case 'inc':
-                if (countValue < maxValue) {
-                    setCountValue(countValue + 1);
-                }
-                break;
-            case 'reset':
-                setCountValue(minValue);
-        }
-    };
+    // const buttonsNameHandler = (buttonName: string) => {
+    //     switch (buttonName) {
+    //         case 'set':
+    //             setCountValue(minValue);
+    //             setIsChangeValue(false);
+    //             setIsVisibleSettings(!isVisibleSettings);
+    //             break;
+    //         case 'inc':
+    //             if (countValue < maxValue) {
+    //                 setCountValue(countValue + 1);
+    //             }
+    //             break;
+    //         case 'reset':
+    //             setCountValue(minValue);
+    //     }
+    // };
 
     // функция состояния активности кнопки: принимает имя, возвращает соответсвующее булево значение
-    const disabled = (buttonName: string) => {
-        switch (buttonName) {
-            case 'set':
-                return error;
-            case 'inc':
-                return (
-                    isChangeValue ||
-                    countValue === maxValue ||
-                    isVisibleSettings
-                );
-            case 'reset':
-                return isChangeValue || countValue === minValue;
-        }
-    };
+    // const disabled = (buttonName: string) => {
+    //     switch (buttonName) {
+    //         case 'set':
+    //             return error;
+    //         case 'inc':
+    //             return (
+    //                 isChangeValue ||
+    //                 countValue === maxValue ||
+    //                 isVisibleSettings
+    //             );
+    //         case 'reset':
+    //             return isChangeValue || countValue === minValue;
+    //     }
+    // };
 
     // флаг для определения ошибочных максимального и стартого значений
     const [error, setError] = useState<boolean>(false);
@@ -58,17 +58,17 @@ function CountWithSettings() {
     const [isChangeValue, setIsChangeValue] = useState<boolean>(false);
 
     // обработчик для изменения значения счетчика от start до max
-    // const changeCountValueHandler = () => {
-    //     if (countValue < maxValue) {
-    //         setCountValue(countValue + 1);
-    //     }
-    // };
+    const changeCountValueHandler = () => {
+        if (countValue < maxValue) {
+            setCountValue(countValue + 1);
+        }
+    };
     // обработчик для открытия/закрытия поля настроек + изменения зачения счетчика
-    // const setValueHandler = () => {
-    //     setCountValue(minValue);
-    //     setIsChangeValue(false);
-    //     setIsVisibleSettings(!isVisibleSettings);
-    // };
+    const setValueHandler = () => {
+        setCountValue(minValue);
+        setIsChangeValue(false);
+        setIsVisibleSettings(!isVisibleSettings);
+    };
 
     // обработчик для изменения максимального значения счетчика
     const maxValueChangeHandler = (value: number) => {
@@ -141,33 +141,45 @@ function CountWithSettings() {
                 </div>
             )}
             <div className={styles.button__container}>
-                {buttons.map((el) => (
+                {/* {buttons.map((el) => (
                     <Button
                         children={el}
                         disabled={disabled(el)}
                         onClick={() => buttonsNameHandler(el)}
                     />
-                ))}
-                {/* <Button
-                    children={'set'}
-                    disabled={error}
-                    onClick={setValueHandler}
-                />
-                <Button
-                    children={'inc'}
-                    disabled={
-                        isChangeValue ||
-                        countValue === maxValue ||
-                        isVisibleSettings
-                    }
-                    onClick={changeCountValueHandler}
-                />
+                ))} */}
+                {isVisibleSettings ? (
+                    <>
+                        <Button
+                            children={'set'}
+                            disabled={error}
+                            onClick={setValueHandler}
+                        />
+                    </>
+                ) : (
+                    <>
+                        <Button
+                            children={'inc'}
+                            disabled={
+                                isChangeValue ||
+                                countValue === maxValue ||
+                                isVisibleSettings
+                            }
+                            onClick={changeCountValueHandler}
+                        />
 
-                <Button
-                    children={'reset'}
-                    disabled={isChangeValue || countValue === minValue}
-                    onClick={() => setCountValue(minValue)}
-                /> */}
+                        <Button
+                            children={'reset'}
+                            disabled={isChangeValue || countValue === minValue}
+                            onClick={() => setCountValue(minValue)}
+                        />
+                        <Button
+                            children={'set'}
+                            disabled={error}
+                            onClick={setValueHandler}
+                        />
+                    </>
+                )}
             </div>
         </div>
     );
