@@ -42,19 +42,16 @@ function App() {
 
     // изменение флага с ошибкой при изменении стартого и максимального значений
     useEffect(() => {
+        // localStorage: сохраняем настройки
+        localStorage.setItem('min1', JSON.stringify(inputStartValue));
+        localStorage.setItem('max1', JSON.stringify(inputMaxValue));
+
         if (inputStartValue < 0 || inputStartValue >= inputMaxValue) {
             setErrorValue(true);
         } else {
             setErrorValue(false);
         }
     }, [inputStartValue, inputMaxValue]);
-
-    // localStorage
-    useEffect(() => {
-        localStorage.setItem('value1', JSON.stringify(countValue));
-        localStorage.setItem('min1', JSON.stringify(inputStartValue));
-        localStorage.setItem('max1', JSON.stringify(inputMaxValue));
-    }, [countValue, inputStartValue, inputMaxValue]);
 
     return (
         <div className={styles.container}>

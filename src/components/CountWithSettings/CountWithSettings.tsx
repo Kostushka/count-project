@@ -93,6 +93,10 @@ function CountWithSettings() {
 
     // перерисовка при изменении стартового и макс занчений, чтобы обрабатывать ошибку
     useEffect(() => {
+        // localStorage: сохраняем настройки
+        localStorage.setItem('min2', JSON.stringify(minValue));
+        localStorage.setItem('max2', JSON.stringify(maxValue));
+
         if (maxValue <= minValue || minValue < 0) {
             setError(true);
         } else {
@@ -101,11 +105,10 @@ function CountWithSettings() {
     }, [minValue, maxValue]);
 
     // localStorage
-    useEffect(() => {
-        localStorage.setItem('value2', JSON.stringify(countValue));
-        localStorage.setItem('min2', JSON.stringify(minValue));
-        localStorage.setItem('max2', JSON.stringify(maxValue));
-    }, [countValue, minValue, maxValue]);
+    // useEffect(() => {
+    //     localStorage.setItem('min2', JSON.stringify(minValue));
+    //     localStorage.setItem('max2', JSON.stringify(maxValue));
+    // }, [minValue, maxValue]);
 
     return (
         <div className={styles.container}>
