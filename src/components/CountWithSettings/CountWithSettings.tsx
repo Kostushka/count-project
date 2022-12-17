@@ -60,10 +60,7 @@ function CountWithSettings() {
     });
 
     // стейт для значения счетчика
-    const [countValue, setCountValue] = useState<number>(() => {
-        // значение localStorage не перезатирается инициализационным значением при отрисовке
-        return Number(localStorage.getItem('value2')) || 0;
-    });
+    const [countValue, setCountValue] = useState<number>(minValue);
 
     // флаг для определения: изменяются ли поля настроек
     const [isChangeValue, setIsChangeValue] = useState<boolean>(false);

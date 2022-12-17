@@ -20,12 +20,6 @@ function App() {
         [COUNT_2]: { name: ['inc', 'reset'] },
     };
 
-    // стейт для значения счетчика
-    const [countValue, setCountValue] = useState<number>(() => {
-        // значение localStorage не перезатирается инициализационным значением при отрисовке
-        return Number(localStorage.getItem('value1')) || 0;
-    });
-
     // стейт для максимального и стартого значений
     const [inputMaxValue, setInputMaxValue] = useState<number>(() => {
         // значение localStorage не перезатирается инициализационным значением при отрисовке
@@ -36,6 +30,9 @@ function App() {
         // значение localStorage не перезатирается инициализационным значением при отрисовке
         return Number(localStorage.getItem('min1')) || 0;
     });
+
+    // стейт для значения счетчика
+    const [countValue, setCountValue] = useState<number>(inputStartValue);
 
     // флаг для определения ошибочных максимального и стартого значений
     const [errorValue, setErrorValue] = useState<boolean>(false);
