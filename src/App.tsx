@@ -21,11 +21,21 @@ function App() {
     };
 
     // стейт для значения счетчика
-    const [countValue, setCountValue] = useState<number>(0);
+    const [countValue, setCountValue] = useState<number>(() => {
+        // значение localStorage не перезатирается инициализационным значением при отрисовке
+        return Number(localStorage.getItem('value1')) || 0;
+    });
 
     // стейт для максимального и стартого значений
-    const [inputMaxValue, setInputMaxValue] = useState<number>(5);
-    const [inputStartValue, setInputStartValue] = useState<number>(0);
+    const [inputMaxValue, setInputMaxValue] = useState<number>(() => {
+        // значение localStorage не перезатирается инициализационным значением при отрисовке
+        const value = localStorage.getItem('max1');
+        return value ? JSON.parse(value) : 5;
+    });
+    const [inputStartValue, setInputStartValue] = useState<number>(() => {
+        // значение localStorage не перезатирается инициализационным значением при отрисовке
+        return Number(localStorage.getItem('min1')) || 0;
+    });
 
     // флаг для определения ошибочных максимального и стартого значений
     const [errorValue, setErrorValue] = useState<boolean>(false);
@@ -41,6 +51,13 @@ function App() {
             setErrorValue(false);
         }
     }, [inputStartValue, inputMaxValue]);
+
+    // localStorage
+    useEffect(() => {
+        localStorage.setItem('value1', JSON.stringify(countValue));
+        localStorage.setItem('min1', JSON.stringify(inputStartValue));
+        localStorage.setItem('max1', JSON.stringify(inputMaxValue));
+    }, [countValue, inputStartValue, inputMaxValue]);
 
     return (
         <div className={styles.container}>

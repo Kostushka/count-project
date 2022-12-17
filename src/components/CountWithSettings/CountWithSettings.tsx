@@ -48,11 +48,22 @@ function CountWithSettings() {
     const [isVisibleSettings, setIsVisibleSettings] = useState<boolean>(false);
 
     // стейт для максимального и стартого значений
-    const [maxValue, setMaxValue] = useState<number>(5);
-    const [minValue, setMinValue] = useState<number>(0);
+    const [maxValue, setMaxValue] = useState<number>(() => {
+        // значение localStorage не перезатирается инициализационным значением при отрисовке
+        const value = localStorage.getItem('max2');
+        return value ? JSON.parse(value) : 5;
+    });
+    const [minValue, setMinValue] = useState<number>(() => {
+        // значение localStorage не перезатирается инициализационным значением при отрисовке
+        const value = localStorage.getItem('min2');
+        return value ? JSON.parse(value) : 0;
+    });
 
     // стейт для значения счетчика
-    const [countValue, setCountValue] = useState<number>(minValue);
+    const [countValue, setCountValue] = useState<number>(() => {
+        // значение localStorage не перезатирается инициализационным значением при отрисовке
+        return Number(localStorage.getItem('value2')) || 0;
+    });
 
     // флаг для определения: изменяются ли поля настроек
     const [isChangeValue, setIsChangeValue] = useState<boolean>(false);
@@ -61,6 +72,7 @@ function CountWithSettings() {
     const changeCountValueHandler = () => {
         if (countValue < maxValue) {
             setCountValue(countValue + 1);
+            // localStorage.setItem('value2', JSON.stringify(countValue + 1));
         }
     };
     // обработчик для открытия/закрытия поля настроек + изменения зачения счетчика
@@ -90,6 +102,13 @@ function CountWithSettings() {
             setError(false);
         }
     }, [minValue, maxValue]);
+
+    // localStorage
+    useEffect(() => {
+        localStorage.setItem('value2', JSON.stringify(countValue));
+        localStorage.setItem('min2', JSON.stringify(minValue));
+        localStorage.setItem('max2', JSON.stringify(maxValue));
+    }, [countValue, minValue, maxValue]);
 
     return (
         <div className={styles.container}>

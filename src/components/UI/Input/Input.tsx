@@ -8,10 +8,10 @@ type InputType = {
     error?: boolean;
 };
 
-function Input({ inputValue, setInputValue, ...props }: InputType) {
+function Input({ inputValue, setInputValue, error, ...props }: InputType) {
     return (
         <input
-            className={`${styles.input} ${props.error && styles.error}`}
+            className={`${styles.input} ${error && styles.error}`}
             type={props.type}
             value={inputValue}
             onChange={(e) => setInputValue(Number(e.currentTarget.value))}
